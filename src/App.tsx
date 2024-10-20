@@ -4,6 +4,7 @@ import Home from "./components/pages/Home"
 import './index.css';
 
 
+
 const App = () => {
   const [open, setOpen] = useState(true);
   const Navigate = [
