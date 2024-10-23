@@ -1,4 +1,4 @@
-const passport = require("passport");
+import passport from "passport";
 
 export const authorize =
   ({ isAdmin = false }) =>
@@ -28,15 +28,13 @@ export const authenticate = (req, res, next) => {
         message: info.message,
       });
     }
-    req.logIn(user, (loginErr) => {
-      if (loginErr) {
+    req.logIn(user, (err) => {
+      if (err) {
         return res.status(500).json({
-          message: "Login failed",
+          message: err.message,
         });
       }
 
-      req.isAuthenticated = true;
-      req.user = user;
       next();
     });
   })(req, res, next);

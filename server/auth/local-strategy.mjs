@@ -1,6 +1,5 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
-import { users } from "../data/user.mjs";
 import User from "../mongoose/schemas/user.mjs";
 import { comparePasswords } from "../utils/bcrypt.mjs";
 
@@ -13,6 +12,7 @@ passport.deserializeUser(async (id, done) => {
   if (!user) {
     return done(new Error("User not found"));
   }
+  const userObj = user.toObject();
   done(null, user);
 });
 

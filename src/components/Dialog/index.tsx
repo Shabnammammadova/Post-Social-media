@@ -1,6 +1,6 @@
-import { useFormik } from "formik"
+import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Button } from "../../components/ui/button"
+import { Button } from "../../components/ui/button";
 import {
     Dialog,
     DialogContent,
@@ -8,46 +8,55 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "../../components/ui/dialog"
-import { Input } from "../../components/ui/input"
-import { Label } from "../../components/ui/label"
-
+} from "../../components/ui/dialog";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
+import { useState } from "react";
 
 export function DialogDemo() {
-    const sumbitSchema = Yup.object({
+    const [imagePreview, setImagePreview] = useState(null);
+
+    const submitSchema = Yup.object({
         title: Yup.string().required("Please enter post title"),
         content: Yup.string().required("Please enter post content"),
         tags: Yup.string().min(2).required("Please enter post tag"),
-        image: Yup.string().required("Please enter post image"),
+        image: Yup.mixed().required("Please upload a post image"),
     });
 
     const initialValues = {
         title: '',
         content: '',
         tags: '',
-        image: '',
-    }
+        image: null,
+    };
 
-    const { values, handleBlur, handleChange, handleSubmit, errors } = useFormik({
+    const { values, handleBlur, handleChange, handleSubmit, errors, setFieldValue } = useFormik({
         initialValues,
-        validationSchema: sumbitSchema,
+        validationSchema: submitSchema,
         onSubmit: (values, actions) => {
             console.log(values);
-            actions.resetForm()
+            actions.resetForm();
+            setImagePreview(null);
         }
-    })
+    });
 
+    const handleFileChange = (e) => {
+        const file = e.currentTarget.files[0];
+        if (file) {
+            setFieldValue("image", file);
+            setImagePreview(URL.createObjectURL(file));
+        }
+    };
 
     return (
         <div className="pb-5">
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button variant="outline">Edit Profile</Button>
+                    <Button variant="outline">Create Post</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
                         <DialogTitle>Create post</DialogTitle>
-
                     </DialogHeader>
 
                     <form className="flex flex-col gap-4 py-4" onSubmit={handleSubmit}>
@@ -64,10 +73,9 @@ export function DialogDemo() {
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                             />
-                            <div>
-                                {errors.title && <p className="text-red-600">{errors.title}</p>}
-                            </div>
+                            {errors.title && <p className="text-red-600">{errors.title}</p>}
                         </div>
+
                         <div className="flex flex-col items-start gap-4">
                             <Label htmlFor="content" className="text-right">
                                 Post content
@@ -81,10 +89,9 @@ export function DialogDemo() {
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                             />
-                            <div>
-                                {errors.content && <p className="text-red-600">{errors.content}</p>}
-                            </div>
+                            {errors.content && <p className="text-red-600">{errors.content}</p>}
                         </div>
+
                         <div className="flex flex-col items-start gap-4">
                             <Label htmlFor="tags" className="text-right">
                                 Post tags
@@ -98,34 +105,32 @@ export function DialogDemo() {
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                             />
-                            <div>
-                                {errors.tags && <p className="text-red-600">{errors.tags}</p>}
-                            </div>
+                            {errors.tags && <p className="text-red-600">{errors.tags}</p>}
                         </div>
+
                         <div className="flex flex-col items-start gap-4">
                             <Label htmlFor="image" className="text-right">
                                 Post image
                             </Label>
                             <Input
                                 id="image"
-                                placeholder="Type here..."
+                                type="file"
+                                accept="image/*"
                                 className="col-span-3"
-                                name="image"
-                                value={values.image}
-                                onBlur={handleBlur}
-                                onChange={handleChange}
+                                onChange={handleFileChange}
                             />
-                            <div>
-                                {errors.image && <p className="text-red-600">{errors.image}</p>}
-                            </div>
+                            {errors.image && <p className="text-red-600">{errors.image}</p>}
+                            {imagePreview && (
+                                <img src={imagePreview} alt="Image Preview" className="mt-2 w-[100px] h-[100px]" />
+                            )}
                         </div>
                     </form>
                     <DialogFooter className="flex gap-2">
-                        <Button type="submit">Cancel</Button>
-                        <Button type="submit">Submit</Button>
+                        <Button type="button">Cancel</Button>
+                        <Button type="submit" onClick={handleSubmit}>Submit</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
         </div>
-    )
+    );
 }

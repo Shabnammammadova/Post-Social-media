@@ -4,8 +4,10 @@ import mongoose from "mongoose";
 import passport from "passport";
 import cookieParser from "cookie-parser";
 import session from "express-session";
+import cors from "cors";
 import "./auth/local-strategy.mjs";
 import authRoutes from "./routes/auth.mjs";
+import profileRoutes from "./routes/profile.mjs";
 import "./mongoose/schemas/user.mjs";
 
 dotenv.config();
@@ -15,6 +17,12 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -32,16 +40,8 @@ app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
-// app.post("/auth/login", passport.authenticate("local"), (req, res) => {
-//   console.log(req.user);
-
-//   res.json({
-//     message: "Login successful",
-//   });
-// });
-
 app.use("/auth", authRoutes);
-
+app.use("/profile", profileRoutes);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

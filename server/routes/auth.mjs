@@ -4,15 +4,23 @@ import { registerSchema } from "../validation/auth.mjs";
 import { hashPassword } from "../utils/bcrypt.mjs";
 import User from "../mongoose/schemas/user.mjs";
 import passport from "passport";
+import { authenticate, authorize } from "../middlewares/user.mjs";
 
 const router = Router();
 
-router.post("/login", passport.authenticate("local"), (req, res) => {
-  res.json({
-    message: "Login successful",
-    user: req.user,
-  });
-});
+router.post(
+  "/login",
+  (req, res, next) => passport.authenticate("local", authenticate),
+  (req, res) => {
+    const user = req.user.toObject();
+    delete user.password;
+    delete user._v;
+    res.json({
+      message: "Login successful",
+      user,
+    });
+  }
+);
 
 router.post("/register", validateSchema(registerSchema), async (req, res) => {
   const user = req.matchedData;
@@ -38,9 +46,20 @@ router.post("/register", validateSchema(registerSchema), async (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-  res.json({
-    message: "Logout successful",
+  req.logout((err) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Something went wrong",
+      });
+    }
+    res.json({
+      message: "Logout successful",
+    });
   });
 });
-
+router.get("/current-user", authorize({ isAdmin: false }), (req, res) => {
+  res.json({
+    user: req.user,
+  });
+});
 export default router;
