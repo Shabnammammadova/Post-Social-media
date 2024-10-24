@@ -24,6 +24,14 @@ const userSchema = new Schema({
     enum: ["admin", "user"],
     default: "user",
   },
+  forgotPasswordToken: {
+    type: String,
+    default: null,
+  },
+  forgotPasswordTokenExpires: {
+    type: Date,
+    default: null,
+  },
 });
 
 export default mongoose.model("User", userSchema);

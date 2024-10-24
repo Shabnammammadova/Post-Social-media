@@ -6,6 +6,7 @@ import AuthGuard from "../layout/auth-guard";
 import ProfilePage from "../components/pages/Profile";
 import Dashboard from "../components/pages/Dashboard";
 export const router = createBrowserRouter([
+
     {
         path: "/",
         element: <Home />
