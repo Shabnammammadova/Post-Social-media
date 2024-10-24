@@ -5,48 +5,51 @@ import { DialogDemo } from "../../../components/Dialog"
 export default function Home() {
     return (
         <>
-            <DialogDemo />
-            <Card className="w-full max-w-md rounded-2xl overflow-hidden">
-                <CardContent className="p-0">
-                    <img
-                        src="/placeholder.svg"
-                        alt="Post Image"
-                        width="800"
-                        height="400"
-                        className="object-cover aspect-[2/1]"
-                    />
-                </CardContent>
-                <CardFooter className="p-4 grid gap-4">
-                    <div className="flex items-center gap-3">
-                        <Avatar className="w-8 h-8">
-                            <AvatarImage src="/placeholder-user.jpg" alt="@shadcn" />
-                            <AvatarFallback>SC</AvatarFallback>
-                        </Avatar>
-                        <div className="grid gap-0.5">
-                            <div className="font-medium">Post Title</div>
-                            <div className="text-xs text-muted-foreground">0h ago</div>
+            <div className="flex items-center justify-center flex-col mx-auto">
+                <DialogDemo />
+                <Card className="w-full max-w-md rounded-2xl overflow-hidden">
+                    <CardContent className="p-0">
+                        <img
+                            src="/placeholder.svg"
+                            alt="Post Image"
+                            width="800"
+                            height="400"
+                            className="object-cover aspect-[2/1]"
+                        />
+                    </CardContent>
+                    <CardFooter className="p-4 grid gap-4">
+                        <div className="flex items-center gap-3">
+                            <Avatar className="w-8 h-8">
+                                <AvatarImage src="/placeholder-user.jpg" alt="@shadcn" />
+                                <AvatarFallback>SC</AvatarFallback>
+                            </Avatar>
+                            <div className="grid gap-0.5">
+                                <div className="font-medium">Post Title</div>
+                                <div className="text-xs text-muted-foreground">0h ago</div>
+                            </div>
                         </div>
-                    </div>
-                    <div>Post tag</div>
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            <Button variant="ghost" size="icon">
-                                <HeartIcon className="w-5 h-5" />
-                                <span className="sr-only">Like</span>
-                            </Button>
-                            <Button variant="ghost" size="icon">
-                                <MessageCircleIcon className="w-5 h-5" />
-                                <span className="sr-only">Comment</span>
-                            </Button>
-                            <Button variant="ghost" size="icon">
-                                <ShareIcon className="w-5 h-5" />
-                                <span className="sr-only">Share</span>
-                            </Button>
+                        <div>Post tag</div>
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <Button variant="ghost" size="icon">
+                                    <HeartIcon className="w-5 h-5" />
+                                    <span className="sr-only">Like</span>
+                                </Button>
+                                <Button variant="ghost" size="icon">
+                                    <MessageCircleIcon className="w-5 h-5" />
+                                    <span className="sr-only">Comment</span>
+                                </Button>
+                                <Button variant="ghost" size="icon">
+                                    <ShareIcon className="w-5 h-5" />
+                                    <span className="sr-only">Share</span>
+                                </Button>
+                            </div>
+                            <div className="text-sm text-muted-foreground">0 likes • 0 comments</div>
                         </div>
-                        <div className="text-sm text-muted-foreground">0 likes • 0 comments</div>
-                    </div>
-                </CardFooter>
-            </Card>
+                    </CardFooter>
+                </Card>
+            </div>
+
         </>
 
     )

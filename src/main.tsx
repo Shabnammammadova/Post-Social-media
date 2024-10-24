@@ -9,8 +9,11 @@ import Header from './components/Header/index.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
-    <Header />
-    <RouterProvider router={router} />
+    <div className='flex'>
+      <Header />
+      <RouterProvider router={router} />
+    </div>
+
   </Provider>
 
 )

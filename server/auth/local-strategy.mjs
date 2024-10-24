@@ -13,7 +13,9 @@ passport.deserializeUser(async (id, done) => {
     return done(new Error("User not found"));
   }
   const userObj = user.toObject();
-  done(null, user);
+  delete userObj.password;
+  delete userObj._v;
+  done(null, userObj);
 });
 
 export default passport.use(
@@ -26,11 +28,14 @@ export default passport.use(
       const user = await User.findOne({
         email,
       });
-      if (!user) {
-        throw new Error("Invalid username or pasword");
-      }
-      if (!comparePasswords(password, user.password)) {
-        throw new Error("Invalid username or pasword");
+      if (!comparePasswords(password, user.password) || !user) {
+        return (
+          null,
+          false,
+          {
+            message: "Invalid error password",
+          }
+        );
       }
       done(null, user);
     } catch (error) {

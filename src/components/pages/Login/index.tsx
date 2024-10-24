@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import { login } from '../../../services/auth';
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email required'),
@@ -9,8 +10,8 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
     return (
-        <section>
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <section className='flex items-center justify-center mx-auto'>
+            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto w-[400px] md:h-screen lg:py-0">
                 <a href="" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                     Autentication
                 </a>

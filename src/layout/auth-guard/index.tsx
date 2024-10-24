@@ -2,8 +2,9 @@ import { useDispatch } from "react-redux"
 import { Navigate, Outlet } from "react-router-dom";
 import { getCurrentUserAsync } from "../../services/auth";
 import { useEffect } from "react";
-import { UserRole } from "../../../types";
+
 import { useAppSelector } from "../../hooks/redux";
+import { UserRole } from "../../../types";
 
 
 type Props = {

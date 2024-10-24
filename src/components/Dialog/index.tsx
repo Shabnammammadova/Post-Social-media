@@ -126,7 +126,6 @@ export function DialogDemo() {
                         </div>
                     </form>
                     <DialogFooter className="flex gap-2">
-                        <Button type="button">Cancel</Button>
                         <Button type="submit" onClick={handleSubmit}>Submit</Button>
                     </DialogFooter>
                 </DialogContent>

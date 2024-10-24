@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import { register } from '../../../services/auth';
 
 const RegisterSchema = Yup.object().shape({
     name: Yup.string()
@@ -19,8 +20,8 @@ const RegisterSchema = Yup.object().shape({
 
 const Register = () => {
     return (
-        <section>
-            <div className="flex flex-col items-center justify-center px-6 py-2 mx-auto md:h-screen lg:py-0">
+        <section className='flex items-center justify-center mx-auto'>
+            <div className="flex flex-col items-center justify-center px-6 py-2 mx-auto  w-[400px] md:h-screen lg:py-0">
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-2 space-y-2 md:space-y-4 sm:p-8">
                         <Formik
