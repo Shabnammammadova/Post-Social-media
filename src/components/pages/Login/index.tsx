@@ -54,6 +54,7 @@ const Login = () => {
                                             onBlur={handleBlur}
                                             value={values.password} required />
                                         <div className='text-red-600 h-6 text-sm'>{(errors.password && touched.password) ? errors.password : ""}</div>
+                                        <Link className='underline' to="/forgot-password">Forgot Password:(</Link>
                                     </div>
                                     <button type="submit" className="w-full text-white bg-dark-purple font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login</button>
                                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
